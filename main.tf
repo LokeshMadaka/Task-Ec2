@@ -70,6 +70,7 @@ resource "aws_instance" "myownec2" {
     instance_type = "t3.micro"
     key_name = aws_key_pair.myownec2key.key_name
     associate_public_ip_address = true
+    subnet_id = aws_subnet.myownec2sub[0].id
     vpc_security_group_ids = [aws_security_group.myownec2sg.id]
     tags = {
       Name="myownterraformec2"
