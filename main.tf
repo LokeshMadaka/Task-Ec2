@@ -34,7 +34,7 @@ resource "aws_internet_gateway" "myownec2igw" {
 resource "aws_route_table_association" "myrouteassociation" {
     count = local.subnets_count
   route_table_id = aws_route_table.myownec2route.id
-  subnet_id = aws_subnet.myownec2sub.id
+  subnet_id = aws_subnet.myownec2sub[count.index].id
 }
 
 resource "aws_security_group" "myownec2sg" {
