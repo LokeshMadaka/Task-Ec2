@@ -56,8 +56,16 @@ resource "aws_key_pair" "myownec2key" {
     public_key = file("~/id_ed25519.pub")
 }
 
+data "aws_ami" "myownec2ami"{
+  filter {
+    name="myownec2ami"
+    values=["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+  owners = ["099720109477"]
+}
+
 resource "aws_instance" "myownec2" {
-    ami = "ami-02b8269d5e85954ef"
+    ami = data.aws_ami.myownec2ami.id
     instance_type = "t3.micro"
     key_name = aws_key_pair.myownec2key.key_name
     associate_public_ip_address = true
